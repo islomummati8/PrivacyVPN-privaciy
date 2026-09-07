@@ -1,0 +1,233 @@
+import os
+from weasyprint import HTML
+
+html_content = """
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <title>PrivacyVPN - Maxfiylik Siyosati va Xizmat Ko'rsatish Shartlari</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 18mm 15mm;
+            background-color: #ffffff;
+            @bottom-right {
+                content: "Sahifa " counter(page) " / " counter(pages);
+                font-family: Arial, sans-serif;
+                font-size: 8pt;
+                color: #718096;
+            }
+        }
+        
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #2d3748;
+            font-size: 10pt;
+            line-height: 1.5;
+        }
+
+        .header {
+            background-color: #0f172a;
+            color: #ffffff;
+            padding: 24px;
+            margin: -18mm -15mm 20px -15mm;
+            border-bottom: 4px solid #3b82f6;
+        }
+
+        .header h1 {
+            margin: 0 0 6px 0;
+            font-size: 20pt;
+            font-weight: bold;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+        }
+
+        .header p {
+            margin: 0;
+            font-size: 9.5pt;
+            color: #94a3b8;
+        }
+
+        .meta-table {
+            width: 100%;
+            margin-bottom: 20px;
+            border-collapse: collapse;
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+        }
+
+        .meta-table td {
+            padding: 8px 12px;
+            font-size: 9pt;
+            color: #475569;
+        }
+
+        .meta-table td strong {
+            color: #0f172a;
+        }
+
+        h2 {
+            font-size: 13pt;
+            color: #1e293b;
+            border-left: 4px solid #3b82f6;
+            padding-left: 10px;
+            margin-top: 22px;
+            margin-bottom: 10px;
+            page-break-after: avoid;
+        }
+
+        h3 {
+            font-size: 11pt;
+            color: #334155;
+            margin-top: 14px;
+            margin-bottom: 6px;
+            page-break-after: avoid;
+        }
+
+        p {
+            margin-top: 0;
+            margin-bottom: 10px;
+            text-align: justify;
+        }
+
+        ul, ol {
+            margin-top: 0;
+            margin-bottom: 12px;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 4px;
+        }
+
+        .highlight-box {
+            background-color: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-left: 4px solid #2563eb;
+            padding: 12px 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .highlight-box p {
+            margin: 0;
+            color: #1e40af;
+            font-size: 9.5pt;
+        }
+
+        .footer-note {
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 1px solid #e2e8f0;
+            font-size: 8.5pt;
+            color: #64748b;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>PrivacyVPN</h1>
+        <p>Maxfiylik Siyosati va Xizmat Ko'rsatish Shartlari (Privacy Policy & Terms of Service)</p>
+    </div>
+
+    <table class="meta-table">
+        <tr>
+            <td><strong>Loyiha nomi:</strong> PrivacyVPN Suite</td>
+            <td><strong>Kuchga kirish sanasi:</strong> 7-Sentyabr, 2026-yil</td>
+        </tr>
+        <tr>
+            <td><strong>Qo'llanilishi:</strong> Android, Windows, Web Browser Extension</td>
+            <td><strong>Aloqa pochtasi:</strong> support@privacyvpn.app</td>
+        </tr>
+    </table>
+
+    <div class="highlight-box">
+        <p><strong>Xulosa (No-Logs Kafolati):</strong> PrivacyVPN loyihasi foydalanuvchilarning Internetdagi harakatlarini, tashrif buyurgan saytlarini, IP manzillarini, uzatilgan ma'lumotlar mazmunini yoki DNS so'rovlarini UMUAMAN saqlamaydi va uchinchi tomonlarga bermaydi.</p>
+    </div>
+
+    <h2>1. Kirish</h2>
+    <p>Ushbu Maxfiylik Siyosati PrivacyVPN ("Ilova", "Xizmat", "Biz") tomonidan taqdim etiladigan barcha dasturiy ilovalar (Android ilova, Windows desktop mijoz, Brauzer kengaytmalari) va veb-xizmatlarga taalluqlidir. Ushbu hujjat sizning shaxsiy ma'lumotlaringiz qanday ishlanishi va xavfsizligi ta'minlanishini tushuntiradi.</p>
+
+    <h2>2. Biz To'playdigan Ma'lumotlar</h2>
+    <p>Biz foydalanuvchilarning maxfiyligini birinchi o'ringa qo'yamiz. Xizmatimiz minimal ma'lumot to'plash tamoyiliga asoslangan:</p>
+
+    <h3>a) Akkaunt Ma'lumotlari (Firebase Auth)</h3>
+    <ul>
+        <li><strong>Elektron pochta manzili va Parol:</strong> Tizimda ro'yxatdan o'tish va avtorizatsiya qilish uchun foydalaniladi (shifrlangan ko'rinishda saqlanadi).</li>
+        <li><strong>Google hisobi bilan kirish:</strong> Avtorizatsiya uchun faqat ochiq profil identifikatori (Email, Ism) olinadi.</li>
+        <li><strong>Anonim Avtorizatsiya:</strong> Akkauntdan foydalanilmaganda vaqtinchalik unikal token shakllantiriladi.</li>
+    </ul>
+
+    <h3>b) Operatsion va Texnik Ma'lumotlar</h3>
+    <p>Xizmat barqarorligini va sifatini ta'minlash uchun xizmat serverlari quyidagi anonim texnik ko'rsatkichlarni vaqtinchalik qayta ishlashi mumkin:</p>
+    <ul>
+        <li>Ilova versiyasi va qurilma operatsion tizim turi (Android / Windows / Browser Extension).</li>
+        <li>Kunlik/Oylik umumiy ishlatilgan trafik hajmi (megabaytlarda, faqat billing va limitlarni hisoblash uchun).</li>
+    </ul>
+
+    <h2>3. Biz SAQLAMAYDIGAN Ma'lumotlar (No-Logs Policy)</h2>
+    <p>PrivacyVPN arxitekturasi VLESS+Reality protokoli negizida qurilgan bo'lib, quyidagi ma'lumotlarni yozib bormaydi hamda saqlamaydi:</p>
+    <ul>
+        <li>Foydalanuvchining haqiqiy IP-manzili va VPN serveriga ulanish vaqti stampi (Timestamp).</li>
+        <li>Siz tashrif buyurgan veb-saytlar, yuklab olingan fayllar va ko'rilgan sahifalar tarixi.</li>
+        <li>Siz uzatgan yoki qabul qilgan paketlar mazmuni va ma'lumotlar shifri.</li>
+        <li>DNS so'rovlari va trafil yo'nalishlari.</li>
+    </ul>
+
+    <h2>4. Ma'lumotlarni Himoyalash va Shifrlash</h2>
+    <p>Barcha internet trafigingiz qurilmangizdan VPN serverigacha VLESS+Reality zamonaviy protokollari hamda TLS shifrlash kalitlari orqali himoyalanadi. Bu uchinchi tomonlar, ISP (internet provayderlar) hamda ochiq Wi-Fi tarmoqlari orqali ma'lumotlaringizni kuzatishiga yo'l qo'ymaydi.</p>
+
+    <h2>5. Ruxsatlar (Permissions)</h2>
+    <h3>a) Android Ilovasi</h3>
+    <p>Android tizimida <code>VpnService</code> API ruxsati talab qilinadi. Bu ruxsat faqat va faqat qurilma trafigini xavfsiz shifrlangan VLESS tunneliga yo'naltirish uchun ishlatiladi.</p>
+
+    <h3>b) Brauzer Kengaytmasi (Chrome / Firefox / Edge / Opera)</h3>
+    <p>Kengaytma brauzer darajasidagi <code>proxy</code> va <code>storage</code> API ruxsatlaridan foydalanadi. Bu brauzer so'rovlarini VPN serveri orqali yo'naltirish va ulanish holatini (Connect/Disconnect) saqlash uchun zarurdir.</p>
+
+    <h2>6. Uchinchi Tomon Xizmatlari</h2>
+    <p>Loyihamizda xavfsiz autentifikatsiya va backend infratuzilmasi uchun quyidagi ishonchli xizmatlardan foydalaniladi:</p>
+    <ul>
+        <li><strong>Google Firebase:</strong> Foydalanuvchi akkauntlarini boshqarish va autentifikatsiya uchun (Google Privacy Policy shartlariga muvofiq).</li>
+    </ul>
+
+    <h2>7. Foydalanish Shartlari va Cheklovlar (Terms of Service)</h2>
+    <p>PrivacyVPN xizmatidan foydalanishda foydalanuvchilar quyidagi noqonuniy harakatlarni amalga oshirmaslik majburiyatini oladilar:</p>
+    <ul>
+        <li>Kiberhujumlar, DDOS hujumlari yoki tarmoq xavfsizligiga buzg'unchilik qilish.</li>
+        <li>Zararli dasturlarni (malware, viruslar) tarqatish.</li>
+        <li>Mualliflik huquqlarini va mahalliy/xalqaro qonunlarni qo'pol ravishda buzish.</li>
+    </ul>
+
+    <h2>8. Maxfiylik Siyosatidagi O'zgarishlar</h2>
+    <p>Biz ushbu Maxfiylik Siyosatini vaqti-vaqti bilan yangilab turish huquqiga egamiz. Barcha o'zgarishlar ushbu sahifada e'lon qilinadi va kuchga kiradi.</p>
+
+    <h2>9. Bog'lanish</h2>
+    <p>Ushbu Maxfiylik Siyosati bo'yicha savollaringiz yoki takliflaringiz bo'lsa, biz bilan quyidagi manzil orqali bog'lanishingiz mumkin:</p>
+    <p><strong>Email:</strong> support@privacyvpn.app<br>
+    <strong>Veb-sayt:</strong> https://privacyvpn.app</p>
+
+    <div class="footer-note">
+        PrivacyVPN Suite &copy; 2026. Barcha huquqlar himoyalangan.
+    </div>
+
+</body>
+</html>
+"""
+
+html_path = "privacy_policy.html"
+pdf_path = "PrivacyVPN_Privacy_Policy.pdf"
+
+with open(html_path, "w", encoding="utf-8") as f:
+    f.write(html_content)
+
+HTML(html_path).write_pdf(pdf_path)
